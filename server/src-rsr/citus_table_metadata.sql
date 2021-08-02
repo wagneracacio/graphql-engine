@@ -2,7 +2,7 @@ SELECT
   schema.nspname AS table_schema,
   "table".relname AS table_name,
 
-  -- This field corresponds to the `DBTableMetadata` Haskell type
+  -- This field corresponds to the 'DBTableMetadata' Haskell type
   jsonb_build_object(
     'oid', "table".oid :: integer,
     'columns', coalesce(columns.info, '[]'),
@@ -57,7 +57,7 @@ LEFT JOIN LATERAL
     WHERE "column".attrelid = "table".oid
       -- columns where attnum <= 0 are special, system-defined columns
       AND "column".attnum > 0
-      -- dropped columns still exist in the system catalog as “zombie” columns, so ignore those
+      -- dropped columns still exist in the system catalog as 'zombie' columns, so ignore those
       AND NOT "column".attisdropped
   ) columns ON true
 
@@ -104,7 +104,7 @@ LEFT JOIN LATERAL
         'name', foreign_key.ref_table
       ),
       'foreign_columns', foreign_key.ref_columns
-    )) AS info -- This field corresponds to the `PGForeignKeyMetadata` Haskell type
+    )) AS info -- This field corresponds to the 'PGForeignKeyMetadata' Haskell type
     FROM (SELECT
              q.table_schema :: text,
              q.table_name :: text,
